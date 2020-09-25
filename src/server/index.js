@@ -15,13 +15,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
-// app.use(express.static('dist'))
+app.use(express.static('dist'))
 
 console.log(__dirname)
 
 app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.send({'test':'tesssssssssssssssst'})
+    res.sendFile('dist/index.html')
+    // res.send({'test':'tesssssssssssssssst'})
 })
 
 // designates what port the app will listen to for incoming requests
