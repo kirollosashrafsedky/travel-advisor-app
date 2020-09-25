@@ -3,6 +3,7 @@ const express = require('express')
 const dotenv = require('dotenv');
 const request = require('request');
 
+const port = process.env.PORT || 8081;
 projectData = {};
 
 dotenv.config();
@@ -23,7 +24,7 @@ app.get('/', function (req, res) {
 })
 
 // designates what port the app will listen to for incoming requests
-app.listen(8081, function () {
+app.listen(port, function () {
     console.log('Example app listening on port 8081!')
 })
 
