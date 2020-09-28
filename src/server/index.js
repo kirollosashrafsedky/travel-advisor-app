@@ -2,14 +2,29 @@ var path = require('path')
 const express = require('express')
 const dotenv = require('dotenv');
 const request = require('request');
-
-const port = process.env.PORT || 8081;
-projectData = {};
-
 dotenv.config();
+const test = require('./test.js')
 
+const geonames = {
+  'username' : process.env.geonamesUsername,
+  'baseUrl' : 'http://api.geonames.org/searchJSON?&maxRows=10&username=',
+  'urlPartTwo' : '&q='
+}
+const weatherbit = {
+  'apiKey' : process.env.weatherbitApiKey,
+  'baseUrl' : 'https://api.weatherbit.io/v2.0/forecast/daily?&lat=',
+  'urlPartTwo' : '&lon=',
+  'urlPartThree' : '&key='
+}
+const pixabay = {
+  'apiKey' : process.env.pixapayapikey,
+  'baseUrl' : 'https://pixabay.com/api/?per_page=4&key=',
+  'urlPartTwo' : '&q='
+}
+const port = process.env.PORT || 8081;
+inputData = {};
+outputData = {};
 const app = express()
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -26,9 +41,65 @@ app.get('/', function (req, res) {
 
 // designates what port the app will listen to for incoming requests
 app.listen(port, function () {
-    console.log('Example app listening on port 8081!')
+    console.log(`Example app listening on port ${port}!`)
 })
 
-app.get('/test', function (req, res) {
-  res.send({'test':'done'});
-})
+app.post('/postdata',handleInput);
+
+async function handleInput(req, res){
+ inputData = req.body;
+ outputData ={};
+//  const geonamesData = await getData(`${geonames.baseUrl}${geonames.username}${geonames.urlPartTwo}${inputData.loc}`);
+//  if(geonamesData.geonames.length >= 1){ //check if lat and long are available before searching the weather
+//    const weatherData = await getData(`${weatherbit.baseUrl}${geonamesData.geonames[0].lat}${weatherbit.urlPartTwo}${geonamesData.geonames[0].lng}${weatherbit.urlPartThree}${weatherbit.apiKey}`);
+//    outputData.weatherData = weatherData;
+//    outputData.geonamesData = geonamesData;
+//    outputData.weatherAvailable = true;
+//  }else{
+//    outputData.weatherAvailable = false;
+//  }
+//  let imagesData = await getData(`${pixabay.baseUrl}${pixabay.apiKey}${pixabay.urlPartTwo}${inputData.loc}`);
+// if(imagesData.hits.length >= 1){
+//   outputData.imagesData = imagesData;
+//   outputData.imagesAvailable = true;
+// }else if(outputData.weatherAvailable){ //get image of country if images not available for location
+//   imagesData = await getData(`${pixabay.baseUrl}${pixabay.apiKey}${pixabay.urlPartTwo}${geonamesData.geonames[0].countryName}`);
+//   if(imagesData.hits.length >= 1){
+//     outputData.imagesData = imagesData;
+//     outputData.imagesAvailable = true;
+//   }else{
+//     outputData.imagesAvailable = false;
+//   }
+// }else{
+//   outputData.imagesAvailable = false;
+// }
+ // res.send(outputData);
+
+ res.send(test);
+}
+
+function getData(fullUrl){
+  return new Promise(function (resolve, reject) {
+    request(fullUrl, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        const data = JSON.parse(body);
+        resolve(data);
+      }else{
+        console.log('An error happened while fetching ' + fullUrl)
+      }
+    });
+  });
+}
+
+// function getWeather(){
+//   return new Promise(function (resolve, reject) {
+//     fullUrl =  `${weatherbit.baseUrl}${outputData.cords.lat}${weatherbit.urlPartTwo}${outputData.cords.lng}${weatherbit.urlPartThree}${weatherbit.apiKey}`
+//     request(fullUrl, function (error, response, body) {
+//       if (!error && response.statusCode == 200) {
+//         const data = JSON.parse(body);
+//         const weather = data;
+//         resolve(weather);
+//       }
+//     });
+//   });
+// }
