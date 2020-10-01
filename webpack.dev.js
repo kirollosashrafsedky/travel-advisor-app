@@ -23,13 +23,36 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [ 'style-loader', 'css-loader', 'sass-loader' ]
-            }
+            },
+            {
+              //IMAGE LOADER
+              test: /\.(jpe?g|png|gif|svg)$/i,
+              use: [
+                    {
+                      loader: 'file-loader',
+                      options: {
+                        name: '[name].[ext]',
+                        outputPath: (url, resourcePath, context) => {
+                          let relativePath = path.relative(context, resourcePath);
+                          relativePath = relativePath.replace(/\\/g,'/');
+                          relativePath = relativePath.replace('src/client/','').replace(`/${url}`,'');
+                          return `${relativePath}/${url}`;
+                        },
+                      }
+                    }
+                  ]
+            },
+            {
+              test: /\.html$/i,
+              loader: 'html-loader',
+            },
         ]
     },
     plugins: [
         new HtmlWebPackPlugin({
             template: "./src/client/views/index.html",
             filename: "./index.html",
+            favicon: 'src/client/images/favicon.png'
         }),
         new CleanWebpackPlugin({
             // Simulate the removal of files
