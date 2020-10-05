@@ -3,7 +3,6 @@ const express = require('express')
 const dotenv = require('dotenv');
 const request = require('request');
 dotenv.config();
-const test = require('./test.js')
 
 const geonames = {
   'username' : process.env.geonamesUsername,
@@ -36,7 +35,6 @@ console.log(__dirname)
 
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
-    // res.send({'test':'tesssssssssssssssst'})
 })
 
 // designates what port the app will listen to for incoming requests
@@ -72,8 +70,6 @@ async function handleInput(req, res){
    outputData.dataAvailable = false;
  }
  res.send(outputData);
-
- // res.send(test);
 }
 
 function getData(fullUrl){
@@ -88,16 +84,3 @@ function getData(fullUrl){
     });
   });
 }
-
-// function getWeather(){
-//   return new Promise(function (resolve, reject) {
-//     fullUrl =  `${weatherbit.baseUrl}${outputData.cords.lat}${weatherbit.urlPartTwo}${outputData.cords.lng}${weatherbit.urlPartThree}${weatherbit.apiKey}`
-//     request(fullUrl, function (error, response, body) {
-//       if (!error && response.statusCode == 200) {
-//         const data = JSON.parse(body);
-//         const weather = data;
-//         resolve(weather);
-//       }
-//     });
-//   });
-// }
