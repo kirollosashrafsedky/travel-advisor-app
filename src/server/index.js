@@ -49,33 +49,31 @@ app.post('/postdata',handleInput);
 async function handleInput(req, res){
  inputData = req.body;
  outputData ={};
-//  const geonamesData = await getData(`${geonames.baseUrl}${geonames.username}${geonames.urlPartTwo}${inputData.loc}`);
-//  if(geonamesData.geonames.length >= 1){ //check if lat and long are available before searching the weather
-//    const weatherData = await getData(`${weatherbit.baseUrl}${geonamesData.geonames[0].lat}${weatherbit.urlPartTwo}${geonamesData.geonames[0].lng}${weatherbit.urlPartThree}${weatherbit.apiKey}`);
-//    outputData.weatherData = weatherData;
-//    outputData.geonamesData = geonamesData;
-//    outputData.weatherAvailable = true;
-//  }else{
-//    outputData.weatherAvailable = false;
-//  }
-//  let imagesData = await getData(`${pixabay.baseUrl}${pixabay.apiKey}${pixabay.urlPartTwo}${inputData.loc}`);
-// if(imagesData.hits.length >= 1){
-//   outputData.imagesData = imagesData;
-//   outputData.imagesAvailable = true;
-// }else if(outputData.weatherAvailable){ //get image of country if images not available for location
-//   imagesData = await getData(`${pixabay.baseUrl}${pixabay.apiKey}${pixabay.urlPartTwo}${geonamesData.geonames[0].countryName}`);
-//   if(imagesData.hits.length >= 1){
-//     outputData.imagesData = imagesData;
-//     outputData.imagesAvailable = true;
-//   }else{
-//     outputData.imagesAvailable = false;
-//   }
-// }else{
-//   outputData.imagesAvailable = false;
-// }
- // res.send(outputData);
+ const geonamesData = await getData(`${geonames.baseUrl}${geonames.username}${geonames.urlPartTwo}${inputData.loc}`);
+ if(geonamesData.geonames.length >= 1){ //check if lat and long are available before searching the weather
+   const weatherData = await getData(`${weatherbit.baseUrl}${geonamesData.geonames[0].lat}${weatherbit.urlPartTwo}${geonamesData.geonames[0].lng}${weatherbit.urlPartThree}${weatherbit.apiKey}`);
+   outputData.weatherData = weatherData;
+   outputData.geonamesData = geonamesData;
+   outputData.dataAvailable = true;
+   let imagesData = await getData(`${pixabay.baseUrl}${pixabay.apiKey}${pixabay.urlPartTwo}${inputData.loc}`);
+   if(imagesData.hits.length >= 1){
+     outputData.imagesData = imagesData;
+     outputData.imagesAvailable = true;
+   }else{
+     imagesData = await getData(`${pixabay.baseUrl}${pixabay.apiKey}${pixabay.urlPartTwo}${geonamesData.geonames[0].countryName}`);
+     if(imagesData.hits.length >= 1){
+       outputData.imagesData = imagesData;
+       outputData.imagesAvailable = true;
+     }else{
+       outputData.imagesAvailable = false;
+     }
+   }
+ }else{
+   outputData.dataAvailable = false;
+ }
+ res.send(outputData);
 
- res.send(test);
+ // res.send(test);
 }
 
 function getData(fullUrl){

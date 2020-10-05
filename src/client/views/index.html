@@ -3,25 +3,287 @@
   <head>
     <meta charset="utf-8">
     <title>Travel Advisor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;500;600;700&family=El+Messiri:wght@500;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="d-none">
-      <form id="main-form">
-        <input type="text" id="trip-loc" placeholder="Enter location">
-        <br>
-        <label for="trip-starting-date">Starting date</label>
-        <input type="date" id="trip-starting-date">
-        <br>
-        <label for="trip-end-date">End date ( OPTIONAL )</label>
-        <input type="date" id="trip-end-date">
-        <br>
-        <input type="submit" value="Submit">
-      </form>
-      <div id="data">
-        <img src="../images/svg/logo.svg" alt="">
+    <div id="menu">
+      <div class="logo d-flex justify-content-center align-items-center">
+        <img src="../images/svg/logo.svg" alt="Logo images">
+        <h2>Travel Advisor</h2>
       </div>
+      <ul>
+        <li><a href="#app" class="internal">Home</a></li>
+        <li><a href="#features" class="internal">Fetures</a></li>
+        <li><a href="#trips" class="internal">Your trips</a></li>
+        <li><a type="button" href="#" class="" data-toggle="modal" data-target="#add_trip_modal">Search</a></li>
+      </ul>
     </div>
-    <h1>hh</h1>
+    <div id="app">
+      <div id="full-overlay"></div>
+      <nav class="fixed-top navbar-down" id="main_nav">
+        <div class="container">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-2">
+              <a type="button" href="#" class="btn search-btn" data-toggle="modal" data-target="#add_trip_modal"><img src="../images/svg/search-blue.svg" alt="search button"></a>
+            </div>
+            <div class="col-8">
+              <div class="logo d-flex justify-content-center align-items-center">
+                <img src="../images/svg/logo.svg" alt="Logo images">
+                <h2>Travel Advisor</h2>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="humburger-menu" id="menu_trigger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <header>
+        <img src="../images/svg/pin-background.svg" alt="background images" class="img-fluid background-pin">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <h1>“Travel far enough, you meet yourself.”</h1>
+              <p class="text-right">David Mitchell.</p>
+              <form class="mt-4 text-center" id="header_search">
+                <div class="input-group">
+                  <label class="sr-only" for="loc-input-out">Enter Location</label>
+                  <input type="text" class="form-control" id="loc-input-out" placeholder="Where do you want to travel?">
+                  <div class="input-group-append">
+                    <div class="input-group-text"><button type="submit" class="btn p-0 d-flex" data-toggle="modal" data-target="#add_trip_modal"><img src="../images/svg/search.svg" alt="search button"></button></div>
+                  </div>
+                </div>
+                <button type="submit" class="mt-3 px-5 py-2 btn btn-blue" data-toggle="modal" data-target="#add_trip_modal">
+                  Explore
+                </button>
+              </form>
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center mt-5 mt-lg-0">
+              <img src="../images/svg/header.svg" alt="header main images">
+            </div>
+          </div>
+        </div>
+      </header>
+      <section id="features">
+        <div class="container">
+          <div class="row no-gutters">
+            <div class="col-12 col-sm-6 col-lg-4 features-card">
+              <img src="../images/svg/features-images.svg" alt="features images" class="img-fluid">
+              <p class="text-center">Image preview of the desired place</p>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 features-card">
+              <img src="../images/svg/features-weather.svg" alt="features weather" class="img-fluid">
+              <p class="text-center">Show weather forecast</p>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 features-card">
+              <img src="../images/svg/features-trips.svg" alt="features trips" class="img-fluid">
+              <p class="text-center">Appility to add multiple trips</p>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 features-card">
+              <img src="../images/svg/features-notes.svg" alt="features notes" class="img-fluid">
+              <p class="text-center">Add trip notes</p>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 features-card">
+              <img src="../images/svg/features-luggage.svg" alt="features luggage" class="img-fluid">
+              <p class="text-center">Add luggage list</p>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 features-card">
+              <img src="../images/svg/features-save.svg" alt="features save" class="img-fluid">
+              <p class="text-center">Saves the trip list automatically </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="trips">
+        <div class="container">
+          <h1 class="sec-heading">Your trips</h1>
+          <p class="text-center text-muted">Total of <span id="trips_no">0 trips</span></p>
+        </div>
+        <div class="text-center">
+          <button type="button" class="mt-3 px-5 py-2 btn btn-blue" data-toggle="modal" data-target="#add_trip_modal">
+            Add New Trip
+          </button>
+          <button type="button" id="delete-all" class="mt-3 px-5 py-2 btn btn-danger delete-btn" data-id="all">
+            Delete All trips
+          </button>
+        </div>
+        <div id="trips-container">
+
+        </div>
+        <!-- modals -->
+        <!-- add trip modal -->
+        <div class="modal fade" id="add_trip_modal" tabindex="-1" aria-labelledby="add_trip_modal" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add new trip</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="add-form">
+                  <div class="form-group">
+                    <label for="loc-input">Enter location: *</label>
+                    <input type="text" class="form-control" id="trip-loc-input" placeholder="ex:Paris">
+                  </div>
+                  <div class="form-group">
+                    <label for="loc-input">Enter Starting Date: *</label>
+                    <input type="date"  class="form-control" id="trip-starting-date-input">
+                  </div>
+                  <div class="form-group">
+                    <label for="loc-input">Enter End Date: ( Optional )</label>
+                    <input type="date"  class="form-control" id="trip-end-date-input">
+                  </div>
+                  <p class="text-danger" id="error-add-form"></p>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-blue" id="submit-add-form">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- delete modal -->
+        <div class="modal fade" id="delete_trip_modal" tabindex="-1" aria-labelledby="delete_trip_modal" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Delete alert</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p id="delete-msg">Are you sure you want to delete all trips?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- notes modal -->
+        <div class="modal fade" id="notes_trip_modal" tabindex="-1" aria-labelledby="notes_trip_modal" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Trip notes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="edit-trip-notes">
+                  <div class="form-group">
+                    <textarea class="form-control" id="notes-input" rows="5" placeholder="Enter your notes here"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="save-notes">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- luggage modal -->
+        <div class="modal fade" id="luggage_trip_modal" tabindex="-1" aria-labelledby="luggage_trip_modal" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Trip Luggage List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="add-luggage-list">
+                  <div class="row no-gutters">
+                    <div class="col-10 pr-2">
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="list-input" placeholder="Add list item">
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-success w-100 px-0" id="add-list-items">Add</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div id="luggage-list">
+                  <!-- <p class="text-danger text-center">The list is empty</p> -->
+                  <!-- <ul>
+                    <li data-id="0">
+                      <div class="row no-gutters">
+                        <div class="col-10 d-flex align-items-center">
+                          <p class="m-0">some item</p>
+                        </div>
+                        <div class="col-2 d-flex align-items-center justify-content-end">
+                          <button type="button" class="btn btn-danger py-0 px-2" data-id="0">
+                            <span>x</span>
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  </ul> -->
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end modals -->
+      </section>
+      <footer class="mt-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="logo d-flex justify-content-center align-items-center">
+                <img src="../images/svg/logo.svg" alt="Logo images">
+                <h2>Travel Advisor</h2>
+              </div>
+              <p class="about mt-3">Travel Advisor is a web app built using node js, It depends on fetching data from various APIs including  Weatherbit, Geonames, Pixabay and displays images of the entered location and the weather forecast for the trip days.</p>
+            </div>
+            <div class="col-12 col-lg-6">
+              <h3 class="text-center my-4">Technologoes used</h3>
+              <div class="row">
+                <div class="col p-3 text-center">
+                  <img src="../images/png/html5-png.png" alt="html5" class="img-fluid">
+                </div>
+                <div class="col p-3 text-center">
+                  <img src="../images/png/css3-png.png" alt="html5" class="img-fluid">
+                </div>
+                <div class="col p-3 text-center">
+                  <img src="../images/png/js-png.png" alt="html5" class="img-fluid">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col p-3 text-center">
+                  <img src="../images/png/nodejs-png.png" alt="html5" class="img-fluid">
+                </div>
+                <div class="col p-3 text-center">
+                  <img src="../images/png/sass-png.png" alt="html5" class="img-fluid">
+                </div>
+                <div class="col p-3 text-center">
+                  <img src="../images/png/bootstrap-png.png" alt="html5" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center">Developed and designed by <br> <b>Kirollos Ashraf</b></p>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

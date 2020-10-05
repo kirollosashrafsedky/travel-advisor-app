@@ -1,0 +1,186 @@
+#trips{
+  .carousel-img{
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height:450px;
+  }
+  .overlay-img{
+    background-position: right center;
+    background-size: cover;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .trip-wrapper{
+    margin: 50px 0;
+  }
+  .trip-data-grid{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    display: grid;
+    grid-gap: 0;
+    grid-template-areas:
+      'loc loc'
+      'lug weather'
+      'notes weather';
+  }
+  .loc-data, .main-weather-data, .luggage-data, .notes-data{
+    border: 1px solid $lightGray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    width: 100%;
+  }
+  .luggage-data, .notes-data{
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover{
+      background-color: rgba(0,0,0,0.6)
+    }
+  }
+  .loc-data{
+    grid-area: loc;
+    justify-content: center;
+    align-items: flex-start;
+    h2{
+      text-align: left;
+      font-size: 2.3rem;
+    }
+    p{
+      font-size: 1.2rem;
+      font-weight: 200;
+      margin: 0;
+    }
+    p.country{
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    p span{
+      color: $pink;
+      font-weight: 800;
+    }
+  }
+  .main-weather-data{
+    grid-area: weather;
+    .main-temp{
+      font-size: 3.5rem;
+      &::after{
+        font-size: 2rem;
+      }
+    }
+    img.weather-icon{
+      width: 100px;
+    }
+    img{
+      width: 20px;
+    }
+    p.weather-desc{
+      font-size: 1.2rem;
+    }
+  }
+  .luggage-data{
+    grid-area: lug;
+  }
+  .notes-data{
+    grid-area: notes;
+  }
+  .main-weather-data{
+    p.day{
+      font-size: 1rem;
+    }
+  }
+  .rest-weather{
+    background: $pink;
+    background: -moz-linear-gradient(-147deg, $pink 0%, $violet 100%);
+    background: -webkit-linear-gradient(-147deg, $pink 0%, $violet 100%);
+    background: linear-gradient(-147deg, $pink 0%, $violet 100%);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    .temp{
+      font-size: 2rem;
+    }
+    img{
+      width: 75px;
+    }
+    .sm-weather-card{
+      border: 1px solid $lightGray;
+      height: 100%;
+    }
+    p.day-sm{
+      font-size: 1.2rem;
+      font-weight: 200;
+      span{
+        font-weight: 800;
+      }
+    }
+    p.sm-note{
+      font-size: 1rem;
+    }
+  }
+  .error-img{
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+  }
+}
+
+@media(max-width:576px){
+  #trips{
+    .carousel-img{
+      height:350px;
+    }
+    .trip-data-grid{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      color: #fff;
+      display: grid;
+      grid-gap: 0;
+      grid-template-areas:
+        'loc loc'
+        'weather weather'
+        'lug lug'
+        'notes notes';
+    }
+    .main-weather-data{
+      .main-temp{
+        font-size: 3rem;
+        &::after{
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+#luggage-list{
+  ul{
+    list-style: none;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: scroll;
+
+    li{
+      background-color: $lightGray;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+    .btn{
+      font-size: 1.2rem;
+    }
+  }
+}

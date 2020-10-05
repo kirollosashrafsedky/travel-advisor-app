@@ -1,0 +1,127 @@
+nav{
+  padding: 20px 0;
+  background-color: transparent;
+  transition: all 0.4s cubic-bezier(0.85, 0, 0.14, 0.99);
+  &.navbar-down{
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    padding: 5px 0;
+  }
+}
+
+.search-btn{
+  img{
+    width: 30px;
+  }
+}
+.logo{
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    width: 25px;
+    margin-right: 10px;
+  }
+  h2{
+    color: #fff;
+    margin-bottom: 0;
+  }
+}
+nav.navbar-down{
+  .logo{
+    h2{
+      color: $gray;
+    }
+  }
+}
+.humburger-menu{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  cursor: pointer;
+  .bar{
+    width: 35px;
+    height: 4px;
+    background-color: $blue;
+    border-radius: 20px;
+    margin: 3px 0;
+  }
+}
+
+@media (max-width:576px){
+  nav{
+    .logo{
+      img{
+        width: 20px;
+        margin-right: 5px;
+      }
+      h2{
+        font-size: 1.5rem;
+      }
+    }
+    .search-btn{
+      img{
+        width: 20px;
+      }
+    }
+    .humburger-menu{
+      transform: scale(0.8);
+    }
+  }
+}
+#menu{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: $gray;
+  z-index: 5;
+  overflow-y: scroll;
+  padding: 10px 0;
+  transition: all 0.4s cubic-bezier(0.85, 0, 0.14, 0.99);
+  ul{
+    list-style: none;
+    width: 100%;
+    margin-top: 50px;
+    a{
+      text-decoration: none;
+      display: inline-block;
+      color: #fff;
+      padding: 10px 10px;
+      margin: 10px 0;
+      border-left: 4px solid $blue;
+      background-color: #5d5d5d;
+      width: 100%;
+      &:hover{
+        background-color: #6d6d6d;
+      }
+    }
+  }
+  &.show{
+    right: 0;
+  }
+  h2{
+    font-size: 1.6rem;
+  }
+}
+#app{
+  transition: left 0.4s cubic-bezier(0.85, 0, 0.14, 0.99);
+  position: relative;
+  top: 0;
+  left: 0;
+  &.hide{
+    left: -250px;
+    overflow: hidden;
+  }
+}
+
+nav.fixed-top.hide{
+  right: 250px;
+  left: -250px;
+}
