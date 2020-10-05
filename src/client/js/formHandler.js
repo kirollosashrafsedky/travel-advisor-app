@@ -4,7 +4,7 @@ import Trip from './TripClass.js';
 // variables and constants
 const form = document.getElementById("add-form");
 const submitAddForm = document.getElementById('submit-add-form');
-const serverBaseUrl = 'http://localhost:8081'; //will be changed if deployed on any live server as heroku
+const serverBaseUrl = 'https://travel-advisor-web-app.herokuapp.com/'; //heroku link
 const startingDateInput = document.getElementById('trip-starting-date-input');
 const endDateInput = document.getElementById('trip-end-date-input');
 const locInput = document.getElementById('trip-loc-input');
