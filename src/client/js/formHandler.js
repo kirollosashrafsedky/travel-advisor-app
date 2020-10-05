@@ -475,4 +475,5 @@ addLuggageListForm.addEventListener('submit',addLuggageList);
 luggageList.addEventListener('click',deleteLuggageItems);
 
 // exports
-export { postData }
+export {postData}
+export { displayDate }
