@@ -291,7 +291,7 @@ function printToHtml(tripObj){
             html += `
                 <img class="img-fluid weather-icon" src="../images/weather-icons/${tripObj.weather[day]['weather-icon']}.png" alt="weather icon">
                 <p class="temp m-0">${tripObj.weather[day]['temp']}</p>
-                <p class="m-0 sm-note">Predected temp.</p>
+                <p class="m-0 sm-note">Predicted temp.</p>
               </div>
             </div>`;
             break;
