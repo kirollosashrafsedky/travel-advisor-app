@@ -64,3 +64,4 @@ or `npm run build-dev` to build for development.
 
 ## About the developer
 This app is completely designed and developed by Kirollos Ashraf Sedky.
+The app is live at `https://travel-advisor-web-app.herokuapp.com/`
