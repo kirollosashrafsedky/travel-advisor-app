@@ -1,5 +1,6 @@
 //imports
 import Trip from './TripClass.js';
+import { displayDate } from './displayDate.js';
 
 // variables and constants
 const form = document.getElementById("add-form");
@@ -171,11 +172,6 @@ function getImagesArr(inputArr){
   return imagesArr;
 }
 
-function displayDate(date){
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const disp = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
-  return disp;
-}
 
 function printToHtml(tripObj){
   const tempTrip = document.createDocumentFragment();
@@ -475,5 +471,5 @@ addLuggageListForm.addEventListener('submit',addLuggageList);
 luggageList.addEventListener('click',deleteLuggageItems);
 
 // exports
-export {postData}
+export { postData }
 export { displayDate }

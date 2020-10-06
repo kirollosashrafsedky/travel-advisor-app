@@ -21,8 +21,8 @@ const pixabay = {
   'urlPartTwo' : '&q='
 }
 const port = process.env.PORT || 8081;
-inputData = {};
-outputData = {};
+let inputData = {};
+let outputData = {};
 const app = express()
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,6 +37,7 @@ app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
 
+
 // designates what port the app will listen to for incoming requests
 app.listen(port, function () {
     console.log(`Example app listening on port ${port}!`)
@@ -46,7 +47,7 @@ app.post('/postdata',handleInput);
 
 async function handleInput(req, res){
  inputData = req.body;
- outputData ={};
+ outputData = {};
  const geonamesData = await getData(`${geonames.baseUrl}${geonames.username}${geonames.urlPartTwo}${inputData.loc}`);
  if(geonamesData.geonames.length >= 1){ //check if lat and long are available before searching the weather
    const weatherData = await getData(`${weatherbit.baseUrl}${geonamesData.geonames[0].lat}${weatherbit.urlPartTwo}${geonamesData.geonames[0].lng}${weatherbit.urlPartThree}${weatherbit.apiKey}`);
@@ -70,6 +71,7 @@ async function handleInput(req, res){
    outputData.dataAvailable = false;
  }
  res.send(outputData);
+
 }
 
 function getData(fullUrl){
@@ -84,3 +86,5 @@ function getData(fullUrl){
     });
   });
 }
+
+module.exports = app;
